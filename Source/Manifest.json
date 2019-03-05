@@ -1,0 +1,15 @@
+{
+  "ModuleInfo": {
+    "CompanyName": "<%= $PLASTER_PARAM_Company %>",
+    "Copyright": "<%= $PLASTER_PARAM_Company %> <%= $PLASTER_PARAM_Author %>. All rights reserved",
+    "Author": "<%= $PLASTER_PARAM_Author %>",
+    "Guid": "<%= [GUID]::NewGuid() %>",
+    "Description": "<%= $PLASTER_PARAM_Desc %>",
+    "tags": [
+      ""
+    ]
+  },
+  "StaticResources": [
+    ""
+  ]
+}

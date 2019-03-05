@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<plasterManifest schemaVersion="1.1" templateType="Project"
+  xmlns="http://www.microsoft.com/schemas/PowerShell/Plaster/v1">
+  <metadata>
+    <name>PlasterPSBR</name>
+    <id>230463bf-93d0-45f7-ab79-d5c9e2b19f85</id>
+    <version>0.1.0</version>
+    <title>PlasterPSBR</title>
+    <description>A Plaster template to quickly scaffold the base structure required by https://github.com/rdbartram/PSBuildRelease</description>
+    <author>Jan Oehen</author>
+    <tags>PSBuildRelease</tags>
+  </metadata>
+  <parameters>
+    <parameter name="Name" type="text" prompt="Name of your module" />
+    <parameter name="Desc" type="text" prompt="Brief description of this module" />
+    <parameter name="Author" type="user-fullname" prompt="The author of this module" store="text"/>
+    <parameter name="Company" type="text" prompt="The company the author of this module works for" store="text"/>
+    <parameter name="Classes" type="choice" prompt="Will you implement classes?" default='1'>
+      <choice label="&amp;Yes" help="Adds a folder for classes" value="$true" />
+      <choice label="&amp;No" help="Does not add a folder for classes" value="$false" />
+    </parameter>
+    <parameter name="Private" type="choice" prompt="Will you implement private functions?" default='1'>
+      <choice label="&amp;Yes" help="Adds a folder for private functions" value="$true" />
+      <choice label="&amp;No" help="Does not add a folder for private functions" value="$false" />
+    </parameter>
+    <parameter name="Public" type="choice" prompt="Will you implement public functions?" default='0'>
+      <choice label="&amp;Yes" help="Adds a folder for public functions" value="$true" />
+      <choice label="&amp;No" help="Does not add a folder for public functions" value="$false" />
+    </parameter>
+    <parameter name="Pester" type="choice" prompt="Will you implement unit tests? (Pester)" default='0'>
+      <choice label="&amp;Yes" help="Adds a folder for tests" value="$true" />
+      <choice label="&amp;No" help="Does not add a folder for tests" value="$false" />
+    </parameter>
+    <parameter name="Convenience" type="multichoice" prompt="What other files would you like to add?" default='0,1,2,3'>
+      <choice label="&amp;License" help="Adds a License.md file (Visit choosealicense.com for more info on licenses)" value="License" />
+      <choice label="&amp;ChangeLog" help="Adds a ChangeLog.md file (Visit keepachangelog.com for guidelines)" value="ChangeLog" />
+      <choice label="&amp;ReadMe" help="Adds a ReadMe.md file (Visit makeareadme.com for guidelines)" value="ReadMe" />
+      <choice label="&amp;gitignore" help="Adds a .gitignore file (Visit gitignore.io for a kickstart)" value="gitignore" />
+    </parameter>
+    <parameter name="AzurePipe" type="choice" prompt="Will you use Azure Pipelines for builds?" default='0'>
+      <choice label="&amp;Yes" help="Adds a azure-pipelines.yml file" value="$true" />
+      <choice label="&amp;No" help="Does not add a azure-pipelines.yml file" value="$false" />
+    </parameter>
+    <parameter name="SemVer" type="choice" prompt="Will you use automatic semantic versioning using GitVersion?" default='0'>
+      <choice label="&amp;Yes" help="Adds a gitversion.yml file" value="$true" />
+      <choice label="&amp;No" help="Does not add a gitversion.yml file" value="$false" />
+    </parameter>
+  </parameters>
+  <content>
+    <message>Creating your Manifest File</message>
+    <templateFile source='Source\Manifest.json' destination='Manifest.json'/>
+    <message>Creating folder structure</message>
+    <file source='' destination='src'/>
+    <file condition='$PLASTER_PARAM_Classes -eq $true' source='' destination='src\classes'/>
+    <file condition='$PLASTER_PARAM_Private -eq $true' source='' destination='src\private'/>
+    <file condition='$PLASTER_PARAM_Public -eq $true' source='' destination='src\public'/>
+    <message>Adding build related files</message>
+    <file source='Source\.build.ps1' destination='.build.ps1'/>
+    <file source='Source\PSDepend.build.psd1' destination='PSDepend.build.psd1'/>
+    <file condition='$PLASTER_PARAM_AzurePipe -eq $true' source='Source\azure-pipelines.yml' destination='azure-pipelines.yml'/>
+    <file condition='$PLASTER_PARAM_SemVer -eq $true' source='Source\gitversion.yml' destination='gitversion.yml'/>
+    <file condition='$PLASTER_PARAM_Pester -eq $true' source='Source\Tests.ps1' destination='Tests\${PLASTER_PARAM_Name}.Tests.ps1'/>
+    <message>Checking for required modules</message>
+    <requireModule name="PSScriptAnalyzer" condition='$PLASTER_PARAM_Pester -eq $true' minimumVersion="1.17.0" message="Without PSScriptAnalyzer, you will not be able to check your module for best practice violations." />
+    <requireModule name="Pester" condition='$PLASTER_PARAM_Pester -eq $true' minimumVersion="4.7.1" message="Without Pester, you will not be able to run the provided unit tests." />
+    <requireModule name="InvokeBuild" minimumVersion="5.4.4" message="InvokeBuild handles all build tasks." />
+    <requireModule name="PSDepend" minimumVersion="0.3.0" message="PSDepend is used to handle dependencies during build." />
+    <requireModule name="BuildHelpers" minimumVersion="2.0.7" message="BuildHelpers is used to automatically update the module manifest during build." />
+    <file condition='$PLASTER_PARAM_Convenience -contains "gitignore"' source='Source\.gitignore' destination='.gitignore'/>
+    <file condition='$PLASTER_PARAM_Convenience -contains "ChangeLog"' source='Source\ChangeLog.md' destination='Changelog.md'/>
+    <templateFile condition='$PLASTER_PARAM_Convenience -contains "License"' source='Source\License.md' destination='License.md'/>
+    <templateFile condition='$PLASTER_PARAM_Convenience -contains "ReadMe"' source='Source\ReadMe.md' destination='README.md'/>
+    <message>Your module structure has been created, happy coding!</message>
+  </content>
+</plasterManifest>
