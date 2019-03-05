@@ -1,6 +1,6 @@
 # PlasterPSBR
 
-A Plaster template to quickly scaffold the base structure required by https://github.com/rdbartram/PSBuildRelease
+A Plaster template to quickly scaffold the base structure required by [PSBuildRelease by Ryan Bartram]('https://github.com/rdbartram/PSBuildRelease')
 
 ## Installation
 
