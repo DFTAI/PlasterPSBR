@@ -9,3 +9,7 @@
 *.dll
 
 # End of https://www.gitignore.io/api/powershell
+
+Dependencies/*
+.build/*
+BuildOutput/*

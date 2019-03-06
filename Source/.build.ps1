@@ -35,12 +35,11 @@ begin {
     $oldpaths = $env:PSModulePath
     $env:PSModulePath = @(
         (Join-Path $PSScriptRoot "Dependencies"),
-        (Join-Path $PSScriptRoot "src\Dependencies"),
         "C:\WINDOWS\System32\WindowsPowerShell\v1.0",
         "C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules"
     ) -join ';'
 
-    $dependencyPaths = (Join-Path $PSScriptRoot "Dependencies"), (Join-Path $PSScriptRoot "src\Dependencies")
+    $dependencyPaths = (Join-Path $PSScriptRoot "Dependencies")
 
     foreach ($dependencyPath in $dependencyPaths) {
         if(-not (test-path $dependencyPath -PathType Container)){
