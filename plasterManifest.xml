@@ -15,6 +15,10 @@
     <parameter name="Desc" type="text" prompt="Brief description of this module" />
     <parameter name="Author" type="user-fullname" prompt="The author of this module" store="text"/>
     <parameter name="Company" type="text" prompt="The company the author of this module works for" store="text"/>
+    <parameter name="Tag" type="multichoice" prompt="Do you support Windows PowerShell, PowerShell Core or both?" default='0,1'>
+      <choice label="&amp;Core" help="Adds a PSEdition_Core tag to the module manifest." value="Core" />
+      <choice label="&amp;Desktop" help="Adds a PSEdition_Desktop tag to the module manifest." value="Desktop" />
+    </parameter>
     <parameter name="Classes" type="choice" prompt="Will you implement classes?" default='1'>
       <choice label="&amp;Yes" help="Adds a folder for classes" value="$true" />
       <choice label="&amp;No" help="Does not add a folder for classes" value="$false" />

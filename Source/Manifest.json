@@ -5,8 +5,27 @@
     "Author": "<%= $PLASTER_PARAM_Author %>",
     "Guid": "<%= [GUID]::NewGuid() %>",
     "Description": "<%= $PLASTER_PARAM_Desc %>",
+    "CompatiblePSEditions": [
+<% switch($PLASTER_PARAM_Tag){
+          'Core' {
+            '"Core",'
+          }
+          'Desktop'{
+            '"Desktop"'
+          }
+        }
+%>
+    ],
     "tags": [
-      ""
+<% switch($PLASTER_PARAM_Tag){
+          'Core' {
+            '"PSEdition_Core",'
+          }
+          'Desktop'{
+            '"PSEdition_Desktop"'
+          }
+        }
+%>
     ]
   },
   "StaticResources": [
