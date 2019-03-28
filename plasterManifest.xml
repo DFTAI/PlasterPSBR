@@ -4,7 +4,7 @@
   <metadata>
     <name>PlasterPSBR</name>
     <id>230463bf-93d0-45f7-ab79-d5c9e2b19f85</id>
-    <version>0.1.0</version>
+    <version>0.2.4</version>
     <title>PlasterPSBR</title>
     <description>A Plaster template to quickly scaffold the base structure required by https://github.com/rdbartram/PSBuildRelease</description>
     <author>Jan Oehen</author>
