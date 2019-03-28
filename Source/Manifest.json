@@ -1,5 +1,6 @@
 {
   "ModuleInfo": {
+    "Name": "<%= $PLASTER_PARAM_Name %>",
     "CompanyName": "<%= $PLASTER_PARAM_Company %>",
     "Copyright": "<%= $PLASTER_PARAM_Company %> <%= $PLASTER_PARAM_Author %>. All rights reserved",
     "Author": "<%= $PLASTER_PARAM_Author %>",
@@ -28,7 +29,5 @@
 %>
     ]
   },
-  "StaticResources": [
-    ""
-  ]
+  "StaticResources": []
 }

@@ -23,6 +23,10 @@
       <choice label="&amp;Yes" help="Adds a folder for classes" value="$true" />
       <choice label="&amp;No" help="Does not add a folder for classes" value="$false" />
     </parameter>
+    <parameter name="Binaries" type="choice" prompt="Will you need binaries?" default='1'>
+      <choice label="&amp;Yes" help="Adds a folder for binaries" value="$true" />
+      <choice label="&amp;No" help="Does not add a folder for binaries" value="$false" />
+    </parameter>
     <parameter name="Private" type="choice" prompt="Will you implement private functions?" default='1'>
       <choice label="&amp;Yes" help="Adds a folder for private functions" value="$true" />
       <choice label="&amp;No" help="Does not add a folder for private functions" value="$false" />
@@ -56,6 +60,7 @@
     <message>Creating folder structure</message>
     <file source='' destination='src'/>
     <file condition='$PLASTER_PARAM_Classes -eq $true' source='' destination='src\classes'/>
+    <file condition='$PLASTER_PARAM_Binaries -eq $true' source='' destination='src\Binaries'/>
     <file condition='$PLASTER_PARAM_Private -eq $true' source='' destination='src\private'/>
     <file condition='$PLASTER_PARAM_Public -eq $true' source='' destination='src\public'/>
     <message>Adding build related files</message>
